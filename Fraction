@@ -1,0 +1,52 @@
+import java.util.Scanner;
+class Fraction{
+	int  numerator,denominator;
+	public Fraction(int nume,int deno){
+		int commonfactor;
+		commonfactor=euclidgcd(nume,deno);
+		this.numerator = nume/commonfactor; this.denominator=deno/commonfactor;
+		
+	}
+	public int euclidgcd(int m,int n){
+		int r;
+		do{
+			r=m % n;
+			m=n;
+			n=r;
+		}while (r!=0);
+		return m;
+	}
+	public void print(){
+		if (this.denominator==1)
+			System.out.println(this.numerator);
+		else
+			System.out.println(this.numerator+"/"+this.denominator);
+			
+	}
+	public Fraction plus(Fraction tt){
+		int nume, deno;
+		deno= this.denominator*tt.denominator;
+		nume= this.numerator*tt.denominator+tt.numerator*this.denominator;
+		return new Fraction(nume,deno);
+	}
+	public Fraction multiply(Fraction that){
+		return new Fraction(this.numerator*that.numerator,this.denominator*that.denominator);
+	}
+}
+public class Main {
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		Fraction a = new Fraction(in.nextInt(), in.nextInt());
+		Fraction b = new Fraction(in.nextInt(),in.nextInt());
+		
+		a.print();
+		b.print();
+		a.plus(b).print();
+		a.multiply(b).plus(new Fraction(5,6)).print();
+		a.print();
+		b.print();
+		in.close();
+	}
+
+}
