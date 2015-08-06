@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	    String[] cities;
+		int[][] lichengs;
+		int size;
+		ArrayList<String> citylist= new ArrayList<String>();
+
+		Scanner in= new Scanner(System.in);
+		String str=in.next();
+		while ( !str.equals("###") ){
+			citylist.add(str); str= in.next();
+		}
+		size=citylist.size();
+		cities= new String[size];
+		citylist.toArray(cities);
+		lichengs= new int[size][size];
+		for (int i=0;i<size;i++){
+			for (int j=0;j<size;j++){
+				lichengs[i][j]= in.nextInt();
+			}
+		}
+
+		String city1= in.next();
+		String city2= in.next();		
+
+		Licheng lich= new Licheng(cities,lichengs);		
+		System.out.println(lich.getDist(city1, city2));
+		in.close();
+	
+	}
+}
+
+class Licheng {
+	private HashMap<String,Integer> citymap = new HashMap<String,Integer>();
+	private int[][] lichengs;
+	private String[] cities;
+	private int size;
+	public Licheng(String[] cities, int[][] lichengs){
+		this.size=cities.length;
+		this.cities=cities; this.lichengs=lichengs;
+		for (int i=0;i<size;i++)
+			citymap.put(cities[i], i);	
+	}
+
+	public int getCityNo(String city){
+		return citymap.get(city);
+	}
+	public int getDist(String city1,String city2){
+		return lichengs[citymap.get(city1)][citymap.get(city2)];
+	}
+}
